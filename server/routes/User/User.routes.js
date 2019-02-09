@@ -1,22 +1,10 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
-const User = mongoose.model("User");
 const { userErrorMiddleware, validate } = require("./User.errors");
 
-// users register
-router.post("/register", validate('register'), async ({ body }, res, next) => {
-    const error = new Error();
-    error.mine = true;
+// user register
+router.post("/register", validate('register'), async (req, res, next) => {
     try {
-        const user = await new User({
-            fullName: {
-                firstName: body.firstName,
-                lastName: body.lastName
-            },
-            email: body.email,
-            gender: body.gender,
-            password: body.password
-        }).save();
+        const user = req.user;
         const name = user.fullName.firstName.toLowerCase();
         res
             .status(201)
@@ -27,6 +15,16 @@ router.post("/register", validate('register'), async ({ body }, res, next) => {
                     "Please login to continue"
                 ]
             })
+    } catch (err) {
+        next(err);
+    }
+});
+
+// user login
+router.post("/login", validate('login'), async (req, res, next) => {
+    try {
+        const user = req.user;
+        console.log("User: ", user);
     } catch (err) {
         next(err);
     }

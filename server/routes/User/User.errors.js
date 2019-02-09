@@ -1,5 +1,6 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
+const { login, register } = require("../../database/helpers/user.helpers");
 
 const validate = (method) => {
     switch (method) {
@@ -14,13 +15,16 @@ const validate = (method) => {
                     .isLength({min: 6}).withMessage("Too short password."),
                 body('gender').custom(gender => {
                     return ['f', 'm'].indexOf(gender) > -1
-                }).withMessage("Invalid gender"),
-                expressValidatorHelper
+                }).withMessage("Invalid gender."),
+                expressValidatorHelper,
+                register
             ];
 
         case 'login':
             return [
-
+                body('email').isEmail().withMessage("Invalid login credential"),
+                expressValidatorHelper,
+                login
             ]
     }
 };

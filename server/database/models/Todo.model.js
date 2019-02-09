@@ -32,6 +32,9 @@ const Todo = new Schema({
         ref: "User",
         alias: 'u'
     }
+}, {
+    versionKey: false,
+    skipVersioning: true,
 });
 
 Todo.index({
