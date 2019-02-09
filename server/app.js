@@ -1,6 +1,7 @@
 require("./configs/config.env");
 const express = require("express");
 const app = express();
+const validator = require("express-validator");
 
 // mongoose config file
 require("./database/mongoose.config");
@@ -8,9 +9,10 @@ require("./database/mongoose.config");
 // some express middlewares
 app.use(express.urlencoded({extended: false}))
 app.use(express.json());
+app.use(validator());
 
 // app routes
-app.use("/user", require("./routes/User.routes"));
+app.use("/user", require("./routes/User/User.routes"));
 
 // not found router handler
 app.use(require("./routes/Error.routes"));
