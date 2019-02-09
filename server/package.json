@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "express backend server for todo-app",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "repository": "https://github.com/MohamedElmdary/todo",
   "author": "MohamedElmdary",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }
