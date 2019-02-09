@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const { userErrorMiddleware, validate } = require("./User.errors");
+const jwt = require("jsonwebtoken");
+const uuid = require("uuid/v1");
+const { jwtVerfiyToken } = require("../../helpers/jwt.helpers");
 
 // user register
 router.post("/register", validate('register'), async (req, res, next) => {
@@ -24,7 +27,27 @@ router.post("/register", validate('register'), async (req, res, next) => {
 router.post("/login", validate('login'), async (req, res, next) => {
     try {
         const user = req.user;
-        console.log("User: ", user);
+        const userData = {
+            token: user.token,
+            email: user.email,
+            gender: user.gender,
+            fullName: user.fullName,
+        };
+        try {
+            jwtVerfiyToken(user.token);
+        } catch (e) {
+            const payload = {
+                _id: user._id,
+                data: uuid()
+            };
+            const token = jwt.sign(payload, process.env.jwt, {
+                expiresIn: "4h"
+            });
+            user.token = token
+            user.save();
+            userData.token = token;
+        }
+        res.json(userData);
     } catch (err) {
         next(err);
     }

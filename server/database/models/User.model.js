@@ -43,6 +43,10 @@ const User = new Schema({
         ],
         alias: 'g'
     },
+    token: {
+        type: String,
+        default: null
+    },
     password: {
         type: String,
         required: true,
@@ -57,16 +61,6 @@ const User = new Schema({
     autoIndex: true,
     versionKey: false,
     skipVersioning: true,
-});
-
-User.pre('save', async function (next) {
-    try {
-        const salt = await bcrypt.genSalt(10);
-        const password = await bcrypt.hash(this.password, salt);
-        this.password = password;
-    } catch (err) {
-        next(err);
-    }
 });
 
 User.methods.validatePassword = async function (password, hash) {

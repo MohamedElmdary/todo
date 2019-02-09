@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
-
+const { hashPasswords } = require("../../helpers/bcrypt.helpers");
 
 module.exports.register = async (req, res, next) => {
     try {
+        const password = await hashPasswords(req.body.password);
         const user = await new User({
             fullName: {
                 firstName: req.body.firstName.trim(),
@@ -11,7 +12,7 @@ module.exports.register = async (req, res, next) => {
             },
             email: req.body.email,
             gender: req.body.gender,
-            password: req.body.password
+            password
         }).save();
         req.user = user;
         next();
