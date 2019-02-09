@@ -1,0 +1,10 @@
+{
+  "name": "todo-server",
+  "version": "1.0.0",
+  "description": "express backend server for todo-app",
+  "main": "app.js",
+  "repository": "https://github.com/MohamedElmdary/todo",
+  "author": "MohamedElmdary",
+  "license": "MIT",
+  "private": true
+}
