@@ -5,9 +5,9 @@ const validate = (method) => {
     switch (method) {
         case 'register':
             return [
-                body('fullName.firstName').isString().withMessage("Invalid first name value.")
+                body('firstName').isString().withMessage("Invalid first name value.")
                     .trim().isLength({min: 2, max: 25}).withMessage("First name min length is 2 and max is 25."),
-                body('fullName.lastName').isString().withMessage("Invalid last name value.")
+                body('lastName').isString().withMessage("Invalid last name value.")
                     .trim().isLength({min: 2, max: 25}).withMessage("Last name min length is 2 and max is 25."),
                 body('email').isEmail().withMessage("Invalid email address."),
                 body('password').isString().withMessage("Invalid password value.")
@@ -17,6 +17,11 @@ const validate = (method) => {
                 }).withMessage("Invalid gender"),
                 expressValidatorHelper
             ];
+
+        case 'login':
+            return [
+
+            ]
     }
 };
 
