@@ -2,20 +2,25 @@ const router = require("express").Router();
 
 router.use((req, res, next) => {
     const err = new Error();
-    err.message = {
-        errors: [
-            "Page not found"
-        ]
-    };
-    err.status = 404;
+    err.message = [
+        "Page not found"
+    ];
+    err.code = 404;
     next(err);
 });
 
 router.use((err, req, res, next) => {
-    console.log("Error", JSON.stringify(err, undefined, 2));
+    if (!err.code || !err.message) {
+        err.code = 500;
+        err.message = [
+            "Internal server error"
+        ];
+    }
     res
-        .status(err.status)
-        .json(err.message);
+        .status(err.code)
+        .json({
+            errors: err.message
+        });
 });
 
 module.exports = router;
