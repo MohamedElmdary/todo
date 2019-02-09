@@ -21,9 +21,17 @@ module.exports.register = async (req, res, next) => {
     }
 };
 
+module.exports.findByEmail = async function (email) {
+    return await User.findOne({ email });
+}
+
+module.exports.findById = async function (id) {
+    return await User.findById(id);
+}
+
 module.exports.login = async (req, res, next) => {
     try {
-        const user = await User.findOne({email: req.body.email});
+        const user = await findByEmail(req.body.email);
         if (user && await user.validatePassword(req.body.password, user.password)) {
             req.user = user;
             return next();
