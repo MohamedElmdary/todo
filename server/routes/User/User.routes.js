@@ -35,7 +35,7 @@ router.post("/login", validate('login'), async (req, res, next) => {
         };
         try {
             jwtVerfiyToken(user.token);
-        } catch (e) {
+        } catch (_) {
             const payload = {
                 _id: user._id,
                 data: uuid()
@@ -53,6 +53,6 @@ router.post("/login", validate('login'), async (req, res, next) => {
     }
 });
 
-router.use(userErrorMiddleware);
+// router.use(userErrorMiddleware);
 
 module.exports = router;

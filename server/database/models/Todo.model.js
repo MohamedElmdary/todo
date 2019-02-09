@@ -21,11 +21,6 @@ const Todo = new Schema({
         default: false,
         alias: 'd'
     },
-    createdAt: {
-        type: Date,
-        default: new Date().toISOString(),
-        alias: 'ca'
-    },
     user: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -35,6 +30,7 @@ const Todo = new Schema({
 }, {
     versionKey: false,
     skipVersioning: true,
+    timestamps: true,
 });
 
 Todo.index({

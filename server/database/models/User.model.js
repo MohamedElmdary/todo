@@ -51,16 +51,12 @@ const User = new Schema({
         type: String,
         required: true,
         minlength: 6,
-    },
-    createdAt: {
-        type: Date,
-        default: new Date().toISOString(),
-        alias: 'ca'
     }
 }, {
     autoIndex: true,
     versionKey: false,
     skipVersioning: true,
+    timestamps: true,
 });
 
 User.methods.validatePassword = async function (password, hash) {
