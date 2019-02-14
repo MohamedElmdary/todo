@@ -47,12 +47,12 @@ router.post("/login", validate('login'), async (req, res, next) => {
             user.save();
             userData.token = token;
         }
-        res.json(userData);
+        return res.json(userData);
     } catch (err) {
         next(err);
     }
 });
 
-// router.use(userErrorMiddleware);
+router.use(userErrorMiddleware);
 
 module.exports = router;

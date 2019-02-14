@@ -7,12 +7,13 @@ const validator = require("express-validator");
 require("./database/mongoose.config");
 
 // some express middlewares
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(validator());
 
 // app routes
 app.use("/user", require("./routes/User/User.routes"));
+app.use("/todo", require("./routes/Todo/Todo.routes"));
 
 // not found router handler
 app.use(require("./routes/Error.routes"));

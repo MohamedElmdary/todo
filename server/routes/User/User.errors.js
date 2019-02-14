@@ -7,12 +7,12 @@ const validate = (method) => {
         case 'register':
             return [
                 body('firstName').isString().withMessage("Invalid first name value.")
-                    .trim().isLength({min: 2, max: 25}).withMessage("First name min length is 2 and max is 25.").escape(),
+                    .trim().isLength({ min: 2, max: 25 }).withMessage("First name min length is 2 and max is 25.").escape(),
                 body('lastName').isString().withMessage("Invalid last name value.")
-                    .trim().isLength({min: 2, max: 25}).withMessage("Last name min length is 2 and max is 25.").escape(),
-                body('email').isEmail().withMessage("Invalid email address."),
+                    .trim().isLength({ min: 2, max: 25 }).withMessage("Last name min length is 2 and max is 25.").escape(),
+                body('email').isEmail().withMessage("Invalid email address.").escape(),
                 body('password').isString().withMessage("Invalid password value.")
-                    .isLength({min: 6}).withMessage("Too short password."),
+                    .isLength({ min: 6 }).withMessage("Too short password."),
                 body('gender').custom(gender => {
                     return ['f', 'm'].indexOf(gender) > -1
                 }).withMessage("Invalid gender."),
@@ -42,7 +42,7 @@ const userErrorMiddleware = (err, req, res, next) => {
             "Internal server error"
         ];
     }
-    
+
     res
         .status(err.code)
         .json({

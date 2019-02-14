@@ -1,7 +1,7 @@
 const { jwtVerfiyToken } = require("../helpers/jwt.helpers");
 const { findById } = require("../database/helpers/user.helpers");
 
-module.exports.authReq = async (req, res, next) => {
+module.exports.isAuth = async (req, res, next) => {
     try {
         const token = req.header['Authorization'].split("bearer ")[1];
         const id = jwtVerfiyToken(token)._id;
