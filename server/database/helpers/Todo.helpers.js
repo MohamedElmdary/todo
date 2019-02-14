@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Todo = mongoose.model("Todo");
 
 
-module.exports.createTodo = async (req, res, next) => {
+async function createTodo(req, res, next) {
     try {
         const todo = await new Todo({
             title: req.body.title,
@@ -14,4 +14,20 @@ module.exports.createTodo = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+};
+
+async function deleteTodo(req, res, next) {
+    try {
+        await Todo.deleteOne({
+            _id: req.params.id
+        });
+        next();
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = {
+    createTodo,
+    deleteTodo
 };

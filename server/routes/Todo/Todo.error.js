@@ -1,11 +1,11 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
-const { createTodo } = require("../../database/helpers/Todo.helpers");
+const { createTodo, deleteTodo } = require("../../database/helpers/Todo.helpers");
 const { isAuth } = require("../../middlewares/auth.middleware");
 
 const validate = (method) => {
     switch (method) {
-        case 'create': {
+        case 'create':
             return [
                 isAuth,
                 body('title').isString().withMessage("Invalid todo's title value.")
@@ -15,7 +15,12 @@ const validate = (method) => {
                 expressValidatorHelper,
                 createTodo
             ];
-        }
+
+        case 'delete':
+            return [
+                isAuth,
+                deleteTodo
+            ];
     }
 };
 
