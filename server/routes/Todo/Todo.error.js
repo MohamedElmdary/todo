@@ -1,6 +1,6 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
-const { createTodo, deleteTodo, updateTodo } = require("../../database/helpers/Todo.helpers");
+const { createTodo, deleteTodo, updateTodo, getUserTodos } = require("../../database/helpers/Todo.helpers");
 const { isAuth } = require("../../middlewares/auth.middleware");
 
 
@@ -33,6 +33,11 @@ const validate = (method) => {
                 updateTodo
             ];
 
+        case 'getTodos':
+            return [
+                isAuth,
+                getUserTodos
+            ];
     }
 };
 

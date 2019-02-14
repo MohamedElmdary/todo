@@ -52,9 +52,20 @@ async function deleteTodo(req, res, next) {
     }
 }
 
+async function getUserTodos(req, res, next) {
+    try {
+        const todos = await Todo.find({ user: req.user._id }).select("-user -updatedAt");
+        req.todos = todos;
+        next();
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getTodoById,
     createTodo,
     deleteTodo,
-    updateTodo
+    updateTodo,
+    getUserTodos
 };

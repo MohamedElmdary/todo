@@ -24,6 +24,12 @@ router.patch('/:id', validate('update'), (req, res) => {
         });
 });
 
+router.get("/", validate('getTodos'), ({ todos }, res) => {
+    res.json({
+        todos
+    });
+});
+
 router.use(todoErrorMiddleware);
 
 module.exports = router;
