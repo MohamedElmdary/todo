@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Todo = mongoose.model("Todo");
+const { myError } = require("../../helpers/error.mine");
 
 
 async function createTodo(req, res, next) {
@@ -23,15 +24,13 @@ async function getTodoById(id) {
 async function updateTodo(req, res, next) {
     try {
         const todo = await getTodoById(req.params.id);
-        if (!todo) {
-            const error = new Error();
-            error.mine = true;
-            error.code = 400;
-            error.message = [
-                "Todo was not found yet"
-            ];
-            throw error;
-        }
+
+        if (!todo)
+            myError(["Todo was not found yet"]);
+
+        if (todo.user.toString() !== req.user._id.toString())
+            myError(["Todo doesn't belong to the user"]);
+
         todo.title = req.body.title;
         todo.body = req.body.body;
         await todo.save();
@@ -45,21 +44,15 @@ async function deleteTodo(req, res, next) {
     try {
         const todo = await Todo.findById(req.params.id);
 
-        if (!todo) {
-            const error = new Error();
-            error.mine = true;
-            error.code = 400;
-            error.message = [
-                "Todo was not found yet"
-            ];
-            throw error;
-        }
+        if (!todo)
+            myError(["Todo was not found yet"]);
 
-        if (todo.user.toString() === req.user._id.toString()) {
-            console.log(todo.remove);
-            await todo.remove();
-            next();
-        }
+        if (todo.user.toString() !== req.user._id.toString())
+            myError(["Todo doesn't belong to the user"]);
+
+        await todo.remove();
+        next();
+        myError(["Todo was not found yet"]);
     } catch (err) {
         next(err);
     }
