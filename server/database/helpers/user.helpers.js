@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const { hashPasswords } = require("../../helpers/bcrypt.helpers");
 
-module.exports.register = async (req, res, next) => {
+async function register(req, res, next) {
     try {
         const password = await hashPasswords(req.body.password);
         const user = await new User({
@@ -21,15 +21,15 @@ module.exports.register = async (req, res, next) => {
     }
 };
 
-module.exports.findByEmail = async function (email) {
+async function findByEmail(email) {
     return await User.findOne({ email });
 }
 
-module.exports.findById = async function (id) {
+async function findById(id) {
     return await User.findById(id);
 }
 
-module.exports.login = async (req, res, next) => {
+async function login(req, res, next) {
     try {
         const user = await findByEmail(req.body.email);
         if (user && await user.validatePassword(req.body.password, user.password)) {
@@ -46,4 +46,11 @@ module.exports.login = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+}
+
+module.exports = {
+    findByEmail,
+    findById,
+    register,
+    login
 }

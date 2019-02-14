@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-module.exports.jwtVerfiyToken = token => {  
-    jwt.verify(token, process.env.jwt);
+module.exports.jwtVerfiyToken = token => {
+    return jwt.verify(token, process.env.jwt);
 };
 
 
