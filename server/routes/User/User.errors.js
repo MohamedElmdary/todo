@@ -1,6 +1,6 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
-const { login, register } = require("../../database/helpers/user.helpers");
+const { login, register, changePass } = require("../../database/helpers/user.helpers");
 const { signUserToken } = require("../../helpers/jwt.sign");
 
 const validate = (method) => {
@@ -28,6 +28,13 @@ const validate = (method) => {
                 login,
                 signUserToken
             ]
+
+        case 'changepass':
+            return [
+                body('email').isEmail().withMessage("Invalid Email address"),
+                expressValidatorHelper,
+                changePass
+            ];
     }
 };
 

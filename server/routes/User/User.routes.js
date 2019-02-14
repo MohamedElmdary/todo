@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { userErrorMiddleware, validate } = require("./User.errors");
+const { sendEmail } = require("../../helpers/node.mailer");
 
-// user register
 router.post("/register", validate('register'), async (req, res, next) => {
     try {
         const user = req.user;
@@ -20,7 +20,6 @@ router.post("/register", validate('register'), async (req, res, next) => {
     }
 });
 
-// user login
 router.post("/login", validate('login'), async (req, res, next) => {
     try {
         const user = req.user;
@@ -35,6 +34,22 @@ router.post("/login", validate('login'), async (req, res, next) => {
         next(err);
     }
 });
+
+router.post("/changepass", validate('changepass'), async (req, res, next) => {
+    try {
+        const { user, hash } = req.payload;
+        await sendEmail(user.email, 'Change Password', hash);
+        res.json({
+            msg: [
+                `Successfully sent message to ${user.email}`,
+                `Change password code will be available for next 3h`
+            ]
+        });
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 router.use(userErrorMiddleware);
 

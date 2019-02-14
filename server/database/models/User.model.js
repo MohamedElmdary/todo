@@ -20,9 +20,20 @@ const fullName = new Schema({
         alias: 'ln'
     },
 }, {
-    autoIndex: false,
-    _id: false
-});
+        autoIndex: false,
+        _id: false
+    });
+
+const changePasswordReq = new Schema({
+    hash: String,
+    date: {
+        type: Date,
+        default: new Date().getTime() + (3600000 * 3)
+    }
+}, {
+        autoIndex: false,
+        _id: false
+    });
 
 const User = new Schema({
     fullName,
@@ -51,13 +62,14 @@ const User = new Schema({
         type: String,
         required: true,
         minlength: 6,
-    }
+    },
+    changePasswordReq
 }, {
-    autoIndex: true,
-    versionKey: false,
-    skipVersioning: true,
-    timestamps: true,
-});
+        autoIndex: true,
+        versionKey: false,
+        skipVersioning: true,
+        timestamps: true,
+    });
 
 User.methods.validatePassword = async function (password, hash) {
     return await bcrypt.compare(password, hash);
