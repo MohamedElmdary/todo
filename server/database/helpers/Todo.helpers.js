@@ -43,10 +43,23 @@ async function updateTodo(req, res, next) {
 
 async function deleteTodo(req, res, next) {
     try {
-        await Todo.deleteOne({
-            _id: req.params.id
-        });
-        next();
+        const todo = await Todo.findById(req.params.id);
+
+        if (!todo) {
+            const error = new Error();
+            error.mine = true;
+            error.code = 400;
+            error.message = [
+                "Todo was not found yet"
+            ];
+            throw error;
+        }
+
+        if (todo.user.toString() === req.user._id.toString()) {
+            console.log(todo.remove);
+            await todo.remove();
+            next();
+        }
     } catch (err) {
         next(err);
     }
