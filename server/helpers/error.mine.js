@@ -1,4 +1,4 @@
-const myError = (code = 400, message) => {
+const myError = (message, code = 400) => {
     const error = new Error();
     error.mine = true;
     error.code = code;

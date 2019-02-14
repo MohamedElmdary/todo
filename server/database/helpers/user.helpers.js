@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const { hashPasswords } = require("../../helpers/bcrypt.helpers");
+const { myError } = require("../../helpers/error.mine");
 
 async function register(req, res, next) {
     try {
@@ -36,13 +37,8 @@ async function login(req, res, next) {
             req.user = user;
             return next();
         }
-        const error = new Error();
-        error.mine = true;
-        error.code = 400;
-        error.message = [
-            "Invalid login credential"
-        ];
-        throw error;
+
+        myError(["Invalid login credential"]);
     } catch (err) {
         next(err);
     }

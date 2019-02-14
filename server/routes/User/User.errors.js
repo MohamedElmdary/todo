@@ -1,6 +1,7 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
 const { login, register } = require("../../database/helpers/user.helpers");
+const { signUserToken } = require("../../helpers/jwt.sign");
 
 const validate = (method) => {
     switch (method) {
@@ -24,7 +25,8 @@ const validate = (method) => {
             return [
                 body('email').isEmail().withMessage("Invalid login credential"),
                 expressValidatorHelper,
-                login
+                login,
+                signUserToken
             ]
     }
 };

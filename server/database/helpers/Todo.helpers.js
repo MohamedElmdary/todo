@@ -23,6 +23,9 @@ async function getTodoById(id) {
 
 async function updateTodo(req, res, next) {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id))
+            myError(["Todo was not found yet"]);
+
         const todo = await getTodoById(req.params.id);
 
         if (!todo)
@@ -42,8 +45,10 @@ async function updateTodo(req, res, next) {
 
 async function deleteTodo(req, res, next) {
     try {
-        const todo = await Todo.findById(req.params.id);
+        if (!mongoose.Types.ObjectId.isValid(req.params.id))
+            myError(["Todo was not found yet"]);
 
+        const todo = await Todo.findById(req.params.id);
         if (!todo)
             myError(["Todo was not found yet"]);
 
@@ -52,7 +57,6 @@ async function deleteTodo(req, res, next) {
 
         await todo.remove();
         next();
-        myError(["Todo was not found yet"]);
     } catch (err) {
         next(err);
     }
