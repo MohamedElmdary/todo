@@ -1,18 +1,23 @@
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
-const { createTodo, deleteTodo } = require("../../database/helpers/Todo.helpers");
+const { createTodo, deleteTodo, updateTodo } = require("../../database/helpers/Todo.helpers");
 const { isAuth } = require("../../middlewares/auth.middleware");
+
+
+const validateTodo = [
+    isAuth,
+    body('title').isString().withMessage("Invalid todo's title value.")
+        .trim().isLength({ min: 1, max: 75 }).withMessage("Todo's title min length is 1 and max is 75.").escape(),
+    body('body').isString().withMessage("Invalid todo's body value.")
+        .trim().isLength({ min: 1, max: 400 }).withMessage("Todo's body min length is 1 and max is 400.").escape(),
+    expressValidatorHelper
+];
 
 const validate = (method) => {
     switch (method) {
         case 'create':
             return [
-                isAuth,
-                body('title').isString().withMessage("Invalid todo's title value.")
-                    .trim().isLength({ min: 1, max: 75 }).withMessage("First name min length is 1 and max is 75.").escape(),
-                body('body').isString().withMessage("Invalid todo's body value.")
-                    .trim().isLength({ min: 1, max: 400 }).withMessage("First name min length is 1 and max is 400.").escape(),
-                expressValidatorHelper,
+                ...validateTodo,
                 createTodo
             ];
 
@@ -21,6 +26,13 @@ const validate = (method) => {
                 isAuth,
                 deleteTodo
             ];
+
+        case 'update':
+            return [
+                ...validateTodo,
+                updateTodo
+            ];
+
     }
 };
 

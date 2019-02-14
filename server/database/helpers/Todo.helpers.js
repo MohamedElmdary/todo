@@ -16,6 +16,31 @@ async function createTodo(req, res, next) {
     }
 };
 
+async function getTodoById(id) {
+    return await Todo.findById(id);
+}
+
+async function updateTodo(req, res, next) {
+    try {
+        const todo = await getTodoById(req.params.id);
+        if (!todo) {
+            const error = new Error();
+            error.mine = true;
+            error.code = 400;
+            error.message = [
+                "Todo was not found yet"
+            ];
+            throw error;
+        }
+        todo.title = req.body.title;
+        todo.body = req.body.body;
+        await todo.save();
+        next();
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function deleteTodo(req, res, next) {
     try {
         await Todo.deleteOne({
@@ -28,6 +53,8 @@ async function deleteTodo(req, res, next) {
 }
 
 module.exports = {
+    getTodoById,
     createTodo,
-    deleteTodo
+    deleteTodo,
+    updateTodo
 };

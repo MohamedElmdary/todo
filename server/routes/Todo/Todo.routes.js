@@ -17,6 +17,13 @@ router.delete('/:id', validate('delete'), (req, res) => {
         });
 });
 
+router.patch('/:id', validate('update'), (req, res) => {
+    res
+        .json({
+            msg: ['Successfully updated todo.']
+        });
+});
+
 router.use(todoErrorMiddleware);
 
 module.exports = router;
