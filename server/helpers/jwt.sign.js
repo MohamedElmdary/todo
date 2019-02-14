@@ -1,3 +1,4 @@
+"use strict";
 const { jwtVerfiyToken } = require("./jwt.helpers");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid/v1");

@@ -1,3 +1,4 @@
+"use strict";
 const myError = (message, code = 400) => {
     const error = new Error();
     error.mine = true;

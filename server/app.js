@@ -1,3 +1,4 @@
+"use strict";
 require("./configs/config.env");
 const express = require("express");
 const app = express();

@@ -1,3 +1,4 @@
+"use strict";
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -28,10 +29,10 @@ const Todo = new Schema({
         alias: 'u'
     }
 }, {
-    versionKey: false,
-    skipVersioning: true,
-    timestamps: true,
-});
+        versionKey: false,
+        skipVersioning: true,
+        timestamps: true,
+    });
 
 Todo.index({
     title: 'text'

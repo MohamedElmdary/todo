@@ -1,3 +1,4 @@
+"use strict";
 const mongoose = require("mongoose");
 const Todo = mongoose.model("Todo");
 const { myError } = require("../../helpers/error.mine");

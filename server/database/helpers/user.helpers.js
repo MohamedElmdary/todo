@@ -1,3 +1,4 @@
+"use strict";
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const { hashPasswords } = require("../../helpers/bcrypt.helpers");

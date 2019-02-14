@@ -1,3 +1,4 @@
+"use strict";
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
 const { createTodo, deleteTodo, updateTodo, getUserTodos } = require("../../database/helpers/Todo.helpers");

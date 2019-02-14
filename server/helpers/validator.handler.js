@@ -1,3 +1,4 @@
+"use strict";
 const { validationResult } = require("express-validator/check");
 
 const expressValidatorHelper = (req, res, next) => {

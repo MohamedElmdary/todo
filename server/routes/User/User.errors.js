@@ -1,3 +1,4 @@
+"use strict";
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
 const { login, register, changePass } = require("../../database/helpers/user.helpers");

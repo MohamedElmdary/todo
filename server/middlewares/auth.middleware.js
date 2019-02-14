@@ -1,3 +1,4 @@
+"use strict";
 const { jwtVerfiyToken } = require("../helpers/jwt.helpers");
 const { findById } = require("../database/helpers/user.helpers");
 

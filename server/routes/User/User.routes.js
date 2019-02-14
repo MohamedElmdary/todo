@@ -1,3 +1,4 @@
+"use strict";
 const router = require("express").Router();
 const { userErrorMiddleware, validate } = require("./User.errors");
 const { sendEmail } = require("../../helpers/node.mailer");
