@@ -52,15 +52,14 @@ router.post("/changepass", validate('changepass'), async (req, res, next) => {
 });
 
 
-router.patch("/changepass", async (req, res, next) => {
+router.patch("/changepass", validate('changePassword'), async (req, res, next) => {
     try {
-        /* 
-            steps
-            1- check email
-            2- get user and valid code
-            3- change password if correct user and code
-            4- return 400 with msg if not correct
-        */
+        res.json({
+            msg: [
+                "Successfully changed password.",
+                "Please login to continue"
+            ]
+        });
     } catch (err) {
         next(err);
     }

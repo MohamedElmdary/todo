@@ -76,11 +76,43 @@ async function changePass(req, res, next) {
     }
 }
 
+async function changePassAndCheckCode(req, res, next) {
+    try {
+        const { email, hash, password } = req.body;
+
+        const user = await User.findOne({
+            email,
+            changePasswordReq: {
+                hash
+            }
+        });
+
+        if (!user)
+            myError(["User was not found yet"]);
+
+        if (new Date().getTime() > new Date(user.changePasswordReq.date).getTime()) {
+            await User.updateOne({ email }, {
+                changePasswordReq: undefined
+            });
+            myError(["Invalid hash code."]);
+        }
+
+        const hashPassword = await hashPasswords(password);
+        await User.updateOne({ email }, {
+            password: hashPassword
+        });
+        next();
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     findByEmail,
     updateByEmail,
     findById,
     register,
     login,
-    changePass
+    changePass,
+    changePassAndCheckCode
 }

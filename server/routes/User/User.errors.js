@@ -1,7 +1,7 @@
 "use strict";
 const { body } = require("express-validator/check");
 const { expressValidatorHelper } = require("../../helpers/validator.handler");
-const { login, register, changePass } = require("../../database/helpers/user.helpers");
+const { login, register, changePass, changePassAndCheckCode } = require("../../database/helpers/user.helpers");
 const { signUserToken } = require("../../helpers/jwt.sign");
 
 const validate = (method) => {
@@ -32,9 +32,19 @@ const validate = (method) => {
 
         case 'changepass':
             return [
-                body('email').isEmail().withMessage("Invalid Email address"),
+                body('email').isEmail().withMessage("Invalid Email address."),
                 expressValidatorHelper,
                 changePass
+            ];
+
+        case 'changePassword':
+            return [
+                body('email').isEmail().withMessage("Invalid Email address"),
+                body('hash').trim().isString().withMessage("Invalid hash code."),
+                body('password').isString().withMessage("Invalid password value.")
+                    .isLength({ min: 6 }).withMessage("Too short password."),
+                expressValidatorHelper,
+                changePassAndCheckCode
             ];
     }
 };
