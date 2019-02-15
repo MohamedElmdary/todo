@@ -1,21 +1,19 @@
 "use strict";
 const nodemailer = require('nodemailer');
+const { account } = require("../configs/email.config");
 
 const sendEmail = async (to, subject, html) => {
-    const account = await nodemailer.createTestAccount();
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
+        /* host: 'smtp.ethereal.email',
         port: 587,
-        secure: false,
-        auth: {
-            user: account.user,
-            pass: account.pass
-        }
+        secure: false, */
+        service: 'gmail',
+        auth: account
     });
 
     const mailOptions = {
-        from: '"Fred Foo 👻" <foo@blurdybloop.com>',
+        from: account.user,
         to,
         subject,
         html

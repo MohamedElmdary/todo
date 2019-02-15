@@ -80,15 +80,16 @@ async function changePassAndCheckCode(req, res, next) {
     try {
         const { email, hash, password } = req.body;
 
-        const user = await User.findOne({
-            email,
-            changePasswordReq: {
-                hash
-            }
-        });
+        const user = await User.findOne({ email });
 
         if (!user)
             myError(["User was not found yet"]);
+
+
+        user.changePasswordReq = user.changePasswordReq || {};
+
+        if (hash !== user.changePasswordReq.hash)
+            myError(myError(["Invalid hash code."]));
 
         if (new Date().getTime() > new Date(user.changePasswordReq.date).getTime()) {
             await User.updateOne({ email }, {
@@ -99,7 +100,8 @@ async function changePassAndCheckCode(req, res, next) {
 
         const hashPassword = await hashPasswords(password);
         await User.updateOne({ email }, {
-            password: hashPassword
+            password: hashPassword,
+            changePasswordReq: undefined
         });
         next();
     } catch (err) {
