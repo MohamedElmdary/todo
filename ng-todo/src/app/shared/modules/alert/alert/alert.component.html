@@ -1,0 +1,6 @@
+<ng-template [ngIf]="alerts && alerts.length > 0">
+  <div [ngClass]="{alert: true, 'alert-danger': type === 'd', 'alert-success': type === 's'}"
+    *ngFor="let alert of alerts">
+    {{ alert }}
+  </div>
+</ng-template>
