@@ -6,7 +6,10 @@ router.post("/create", validate('create'), (req, res) => {
     res
         .status(201)
         .json({
-            todo: req.todo._id,
+            todo: {
+                _id: req.todo._id,
+                createdAt: req.todo.createdAt
+            },
             msg: ['Successfully added todo.']
         });
 });
