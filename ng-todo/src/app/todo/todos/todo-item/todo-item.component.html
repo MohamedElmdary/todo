@@ -1,9 +1,17 @@
 <ng-template [ngIf]="todo">
   <mat-card>
-    <mat-card-header>{{ todo.title }}</mat-card-header>
-    <mat-card-footer></mat-card-footer>
+    <mat-card-content>
+      <h2>{{ todo.title }}</h2>
+      <span>{{ todo.createdAt | date:'dd/MM/yyyy' }}</span>
+    </mat-card-content>
     <mat-card-actions>
-
+      <div class="done">
+        <div class="spacer"></div>
+        <mat-checkbox color="primary" [checked]="todo.done">Done</mat-checkbox>
+        <div class="spacer"></div>
+      </div>
+      <button mat-button color="warn" (click)="removeTodo(todo._id)">Remove</button>
+      <button mat-button color="primary" (click)="showDetails()">Details</button>
     </mat-card-actions>
   </mat-card>
 </ng-template>

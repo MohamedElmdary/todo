@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 export class TodosComponent implements OnInit, OnDestroy {
   private x: Subscription;
   todos: any[] = [];
+  selectedTodo: any;
 
   constructor(private todo: TodoService) { }
 
@@ -19,6 +20,18 @@ export class TodosComponent implements OnInit, OnDestroy {
         this.todos = v;
       }
     )
+  }
+
+  removeTodo(id) {
+    this.todo.removeTodo(id).subscribe(
+      console.log,
+      console.log
+    );
+  }
+
+  selectTodo(todo) {
+    console.log(todo);
+    this.selectedTodo = todo;
   }
 
   ngOnDestroy() {

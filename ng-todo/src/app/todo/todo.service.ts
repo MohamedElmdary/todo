@@ -17,7 +17,7 @@ export class TodoService {
         this.userTodos.pipe(take(1)).subscribe(todos => {
           this.userTodos.next([{
             ...todo,
-            _id: v.todo
+            ...v.todo
           }, ...todos]);
         });
       })
@@ -25,7 +25,7 @@ export class TodoService {
   }
 
   removeTodo(todoId) {
-    return this.http.delete("/" + todoId).pipe(
+    return this.http.delete("/todo/" + todoId).pipe(
       tap(() => {
         this.userTodos.pipe(take(1)).subscribe((todos: any[]) => {
           const newTodos = todos.filter(todo => todo._id !== todoId);

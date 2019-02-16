@@ -1,0 +1,29 @@
+mat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0
+}
+
+mat-card-content {
+    h2 {
+        text-align: left;
+        font-size: 18px;
+        color: #333;
+        font-weight: 500;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+    span {
+        text-align: left;
+        font-size: 12.5px;
+        color: #aaa;
+        font-weight: 100
+    }
+}
+
+.done {
+    display: flex;
+    height: 50px;
+}

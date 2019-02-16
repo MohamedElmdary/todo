@@ -8,7 +8,8 @@ import {
   MatInputModule,
   MatDividerModule,
   MatButtonModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from '../shared/modules/alert/alert.module';
@@ -42,7 +43,8 @@ const todoRoutes: Routes = [
     FormsModule,
     MatButtonModule,
     AlertModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ]
 })
 export class TodoModule { }
