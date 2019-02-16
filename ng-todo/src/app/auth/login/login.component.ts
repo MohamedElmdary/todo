@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { User } from '../User.interfaces';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,25 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  alerts: string[];
+  type: string = 'd';
+
+  constructor(private auth: AuthService) { }
 
   onLogin({ valid, value }: NgForm) {
-    console.log(valid, value);
+    if (valid) {
+      this.auth.login(value)
+        .subscribe(
+          (user: User) => {
+            localStorage.setItem('user', JSON.stringify(user));
+            this.auth.isAuth.next(user);
+          },
+          error => {
+            this.alerts = error.errors;
+            this.type = 'd';
+          }
+        );
+    }
   }
 
 }

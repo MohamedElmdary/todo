@@ -4,6 +4,7 @@
       <h1>login</h1>
     </header>
     <mat-divider></mat-divider>
+    <app-alert [type]='type' [alerts]="alerts"></app-alert>
     <div class="container">
       <div class="row">
         <form (ngSubmit)="onLogin(f)" #f="ngForm">
