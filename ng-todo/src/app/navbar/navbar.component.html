@@ -6,8 +6,13 @@
         <span class="spacer"></span>
         <button mat-button routerLink="/" [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="active">Home</button>
-        <button mat-button routerLink="/auth/login" routerLinkActive="active">Login</button>
-        <button mat-button routerLink="/auth/register" routerLinkActive="active">Register</button>
+        <ng-template [ngIf]="!isAuth">
+          <button mat-button routerLink="/auth/login" routerLinkActive="active">Login</button>
+          <button mat-button routerLink="/auth/register" routerLinkActive="active">Register</button>
+        </ng-template>
+        <ng-template [ngIf]="isAuth">
+          <button mat-button routerLink="/todos" routerLinkActive="active">Todos</button>
+        </ng-template>
       </div>
     </div>
   </mat-toolbar-row>
