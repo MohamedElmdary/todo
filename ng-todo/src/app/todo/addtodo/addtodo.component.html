@@ -1,0 +1,29 @@
+<section id="add-todo">
+  <div class="container">
+    <div class="row">
+      <header>
+        <h1>Add Todo</h1>
+        <mat-divider></mat-divider>
+      </header>
+      <div class="col-12">
+        <app-alert [type]="type" [alerts]="alerts"></app-alert>
+      </div>
+      <form (ngSubmit)="addTodo(f)" #f="ngForm">
+        <div class="col-12">
+          <mat-form-field>
+            <input matInput placeholder="Todo's title" name="title" ngModel required minlength="1" maxlength="75"
+              type="text">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <textarea matInput #body equired minlength="1" name="body" ngModel required maxlength="400"
+              placeholder="Todo's body"></textarea>
+            <mat-hint align="end">{{body.value.length}} / 400</mat-hint>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Register</button>
+      </form>
+    </div>
+  </div>
+</section>

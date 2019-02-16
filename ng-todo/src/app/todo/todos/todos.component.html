@@ -1,3 +1,9 @@
-<p>
-  todos works!
-</p>
+<section id="todos">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" *ngFor="let todo of todos">
+                <app-todo-item [todo]="todo"></app-todo-item>
+            </div>
+        </div>
+    </div>
+</section>

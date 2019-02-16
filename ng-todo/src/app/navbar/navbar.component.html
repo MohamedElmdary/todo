@@ -11,7 +11,9 @@
           <button mat-button routerLink="/auth/register" routerLinkActive="active">Register</button>
         </ng-template>
         <ng-template [ngIf]="isAuth">
-          <button mat-button routerLink="/todos" routerLinkActive="active">Todos</button>
+          <button mat-button routerLink="/todos" [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active">Todos</button>
+          <button mat-button routerLink="/todos/add" routerLinkActive="active">Add</button>
           <button mat-button (click)="logout()">Logout</button>
         </ng-template>
       </div>
