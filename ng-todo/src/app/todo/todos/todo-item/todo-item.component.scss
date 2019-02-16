@@ -27,3 +27,20 @@ mat-card-content {
     display: flex;
     height: 50px;
 }
+
+@media (max-width: 600px) {
+    mat-card {
+        display: block
+    }
+
+    .done {
+        display: inline;
+        height: auto;
+    } 
+
+    mat-card-actions {
+        display: flex;
+        justify-content: space-around;
+        align-items: center
+    }
+}

@@ -9,11 +9,13 @@ import {
   MatDividerModule,
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatBottomSheetModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from '../shared/modules/alert/alert.module';
 import { MainTodoComponent } from './main-todo/main-todo.component';
+import { TodoDetailsComponent } from './todos/todo-details/todo-details.component';
 import { TodoItemComponent } from './todos/todo-item/todo-item.component';
 
 const todoRoutes: Routes = [
@@ -33,7 +35,13 @@ const todoRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TodosComponent, AddtodoComponent, MainTodoComponent, TodoItemComponent],
+  declarations: [
+    TodosComponent,
+    AddtodoComponent,
+    MainTodoComponent,
+    TodoDetailsComponent,
+    TodoItemComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(todoRoutes),
@@ -44,7 +52,12 @@ const todoRoutes: Routes = [
     MatButtonModule,
     AlertModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBottomSheetModule
+  ],
+  entryComponents: [
+    TodoItemComponent,
+    TodoDetailsComponent
   ]
 })
 export class TodoModule { }

@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Subscription } from 'rxjs';
+import {
+  MatBottomSheet
+} from '@angular/material';
+import { TodoDetailsComponent } from './todo-details/todo-details.component';
 
 @Component({
   selector: 'app-todos',
@@ -12,14 +16,14 @@ export class TodosComponent implements OnInit, OnDestroy {
   todos: any[] = [];
   selectedTodo: any;
 
-  constructor(private todo: TodoService) { }
+  constructor(private todo: TodoService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
     this.x = this.todo.userTodos.subscribe(
       v => {
         this.todos = v;
       }
-    )
+    );
   }
 
   removeTodo(id) {
@@ -36,6 +40,12 @@ export class TodosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.x.unsubscribe();
+  }
+
+  openBottomSheet(): void {
+    this.bottomSheet.open(TodoDetailsComponent, {
+      data: 'test'
+    });
   }
 
 }
