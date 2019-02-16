@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="container">
+      <div class="row">
+        <span>Todo</span>
+        <span class="spacer"></span>
+        <button mat-button routerLink="/" [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active">Home</button>
+        <button mat-button routerLink="/auth/login" routerLinkActive="active">Login</button>
+        <button mat-button routerLink="/auth/register" routerLinkActive="active">Register</button>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

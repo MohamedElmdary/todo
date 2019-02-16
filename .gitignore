@@ -36,6 +36,7 @@ build/Release
 node_modules/
 jspm_packages/
 server/node_modules
+ng-todo/node_modules
 
 # TypeScript v1 declaration files
 typings/
