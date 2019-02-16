@@ -12,6 +12,7 @@
         </ng-template>
         <ng-template [ngIf]="isAuth">
           <button mat-button routerLink="/todos" routerLinkActive="active">Todos</button>
+          <button mat-button (click)="logout()">Logout</button>
         </ng-template>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, /* CanDeactivate,  */RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { map, tap } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate/* , CanDeactivate<any> */ {
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -23,5 +23,16 @@ export class AuthGuard implements CanActivate {
       })
     )
   }
+
+
+  // canDeactivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  //   return this.auth.isAuth.pipe(
+  //     map(v => v !== null),
+  //     tap(v => {
+  //       if (v)
+  //         this.router.navigate(['/todos']);
+  //     })
+  //   )
+  // }
 
 }

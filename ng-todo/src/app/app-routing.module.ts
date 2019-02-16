@@ -5,10 +5,11 @@ import { AuthGuard } from './shared/services/auth.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
+    loadChildren: './auth/auth.module#AuthModule',
+    canDeactivate: []
   },
   {
-    path: 'todo',
+    path: 'todos',
     loadChildren: './todo/todo.module#TodoModule',
     canActivate: [AuthGuard]
   }
