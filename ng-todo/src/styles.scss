@@ -6,3 +6,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .spacer {
     flex-grow: 1
 }
+
+mat-bottom-sheet-container {
+    min-width: 1px !important;
+    width: 100% !important;
+    max-height: none !important;
+    min-height: auto !important;
+    height: 100% !important;
+    max-width: none !important;
+}
+
+.cdk-overlay-pane {
+    max-width: auto !important;
+    width: 100% !important;
+    margin: 0 5% !important;
+    height: 85% !important;
+}

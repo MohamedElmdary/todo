@@ -14,7 +14,6 @@ import { TodoDetailsComponent } from './todo-details/todo-details.component';
 export class TodosComponent implements OnInit, OnDestroy {
   private x: Subscription;
   todos: any[] = [];
-  selectedTodo: any;
 
   constructor(private todo: TodoService, private bottomSheet: MatBottomSheet) { }
 
@@ -33,18 +32,13 @@ export class TodosComponent implements OnInit, OnDestroy {
     );
   }
 
-  selectTodo(todo) {
-    console.log(todo);
-    this.selectedTodo = todo;
-  }
-
   ngOnDestroy() {
     this.x.unsubscribe();
   }
 
-  openBottomSheet(): void {
+  openBottomSheet(data): void {
     this.bottomSheet.open(TodoDetailsComponent, {
-      data: 'test'
+      data
     });
   }
 

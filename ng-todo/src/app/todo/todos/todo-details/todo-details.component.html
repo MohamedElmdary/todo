@@ -1,3 +1,15 @@
-<p>
-  todo-details works!
-</p>
+<section id="todo-details">
+  <mat-card>
+    <mat-card-title-group>
+      <mat-card-title>{{ data.title }}</mat-card-title>
+      <mat-card-subtitle>{{ data.createdAt | date:'medium' }}</mat-card-subtitle>
+      <mat-checkbox color="primary" [checked]="data.done">Done</mat-checkbox>
+    </mat-card-title-group>
+    <mat-card-content>
+      {{ data.body }}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="removeTodo(data._id)">Remove</button>
+    </mat-card-actions>
+  </mat-card>
+</section>

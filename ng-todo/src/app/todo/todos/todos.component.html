@@ -8,11 +8,10 @@
         </div>
         <div class="row">
             <div class="col-12" *ngFor="let todo of todos">
-                <app-todo-item (selectTodo)="selectTodo($event)" (removeTodoWithId)="removeTodo($event)" [todo]="todo">
+                <app-todo-item (selectTodo)="openBottomSheet($event)" (removeTodoWithId)="removeTodo($event)"
+                    [todo]="todo">
                 </app-todo-item>
             </div>
         </div>
     </div>
 </section>
-
-<button (click)="openBottomSheet()">open</button>
