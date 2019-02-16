@@ -3,6 +3,7 @@ require("./configs/config.env");
 const express = require("express");
 const app = express();
 const validator = require("express-validator");
+const cors = require("cors");
 
 // mongoose config file
 require("./database/mongoose.config");
@@ -11,6 +12,7 @@ require("./database/mongoose.config");
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(validator());
+app.use(cors());
 
 // app routes
 app.use("/user", require("./routes/User/User.routes"));
